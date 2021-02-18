@@ -1,0 +1,7 @@
+/home/s1734325/SHP/PET-material/CMakeFiles/install/strip.dir
+/home/s1734325/SHP/PET-material/CMakeFiles/install/local.dir
+/home/s1734325/SHP/PET-material/CMakeFiles/install.dir
+/home/s1734325/SHP/PET-material/CMakeFiles/list_install_components.dir
+/home/s1734325/SHP/PET-material/CMakeFiles/rebuild_cache.dir
+/home/s1734325/SHP/PET-material/CMakeFiles/edit_cache.dir
+/home/s1734325/SHP/PET-material/CMakeFiles/Basic_exe.dir
