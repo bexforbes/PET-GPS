@@ -6,8 +6,8 @@
 /tracking/verbose 0
 /event/verbose 0
 /gps/verbose 2
-/gps/particle ion
-/gps/ion 9 18 0 0
+/gps/particle e+
+#/gps/ion 9 18 0 0
 /gps/pos/type Volume
 /gps/pos/shape Cylinder
 /gps/pos/halfz 100 cm 
