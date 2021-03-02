@@ -10,10 +10,8 @@
 /gps/ion 9 18 0 0
 /gps/pos/type Volume
 /gps/pos/shape Cylinder
-/gps/pos/halfx 10 cm
-/gps/pos/halfy 10 cm
-/gps/pos/halfz 5 cm 
-/gps/pos/radius 5 cm 
+/gps/pos/halfz 100 cm 
+/gps/pos/radius 15 cm 
 /gps/ene/type Mono
-/gps/ene/mono 1.022 MeV 
+/gps/ene/mono 0 MeV 
 /run/beamOn 10000

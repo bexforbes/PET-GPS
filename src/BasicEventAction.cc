@@ -120,14 +120,8 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   // Get hits collections
   auto detHC = GetHitsCollection(fDetHCID, event);
 
-  // not used
-  //auto phanHC = GetHitsCollection(fPhanHCID, event);
-
   // Get hit with total values
   auto detHit = (*detHC)[detHC->entries()-1];
-
-  // not used
-  //auto phanHit = (*phanHC)[phanHC->entries()-1];
 
   // get deposited energy
   G4double dep = detHit->GetEdep();
@@ -142,20 +136,27 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   
   std::map<G4int,G4double*>::iterator itr;
 
-  G4double edep = 0.;
+  G4double phanedep = 0.;
   G4double meanedep = 0.;
   G4int itrs = 0;
   
-
   for (itr = evtMap->GetMap()->begin(); itr != evtMap->GetMap()->end(); itr++) {
-    edep = *(itr->second);
+    phanedep = *(itr->second);
     
     G4int copyNb  = (itr->first);
     //if (edep > 10.)
     G4cout.precision(8);
-    G4cout << G4endl << "  patient " << copyNb << ": " << edep/keV << " keV " << G4endl << " sum edep: " << fSumEdep;
+    G4cout << G4endl << "  patient " << copyNb << ": " << phanedep/keV << " keV " << G4endl << " sum edep: " << fSumEdep;
+        
+        // get analysis manager 
+        auto analysisManager = G4AnalysisManager::Instance();
 
-    fSumEdep += edep/keV; 
+        // fill phantom histogram data
+        analysisManager->FillH1(0, phanedep);
+        analysisManager->FillNtupleDColumn(0, phanedep);
+        analysisManager->AddNtupleRow();
+
+    fSumEdep += phanedep/keV; 
     itrs++; 
   }  
 
@@ -165,10 +166,11 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   G4cout << " Mean Edep: " << meanedep << G4endl;
   
   // defining a Good Event
-  G4double EnergyRes = 1.022*0.106;
+  G4double EnergyRes = 1.022*0.2;
   G4double Threshold = (1.022 - EnergyRes)*MeV;
+  G4double ScatterThreshold = 10.0*keV;
   if (dep > Threshold) fRunAction->CountEvent();  
-
+  if (phanedep > ScatterThreshold) fRunAction->ScatterEvent();
 
   // Print per event (modulo n)
   auto eventID = event->GetEventID();
@@ -186,6 +188,7 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   // fill histograms
   analysisManager->FillH1(0, dep);
   analysisManager->FillH1(1, detHit->GetTrackLength());
+  //analysisManager->FillH1(0, phanedep);
 
   analysisManager->FillNtupleDColumn(0, dep);
   analysisManager->FillNtupleDColumn(1, detHit->GetTrackLength());
@@ -193,17 +196,19 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
 
 }
 
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo...
 
-/*
-void BasicEventAction::Merge(const G4UserEventAction* aRun)
+
+void BasicEventAction::Merge(const G4UserEventAction* eventAction)
 {
-  const BasicEventAction* localRun = static_cast<const BasicEventAction*>(aRun);
+  const BasicEventAction* localRun = static_cast<const BasicEventAction*>(eventAction);
   fSumEdep += localRun->fSumEdep;
-  BasicEventAction::Merge(aRun); 
+
+  BasicEventAction::Merge(eventAction);
 } 
 
-*/
+
 
 
 

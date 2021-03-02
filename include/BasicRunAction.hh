@@ -1,3 +1,4 @@
+
 //
 // ********************************************************************
 // * License and Disclaimer                                           *
@@ -32,6 +33,9 @@
 
 class BasicDetectorConstruction;
 
+class BasicEventAction;
+
+// Run class 
 
 class BasicRunAction : public G4UserRunAction
 {
@@ -42,13 +46,16 @@ class BasicRunAction : public G4UserRunAction
     virtual void BeginOfRunAction(const G4Run*);
     virtual void   EndOfRunAction(const G4Run*);
     void CountEvent()           { GoodEventCount += 1;};
+    void ScatterEvent()    { ScatterEventCount += 1;};
     void Reset()                { GoodEventCount = 0;};
+    void ScatterReset()         { ScatterEventCount = 0;};
 
   private:
     static int GoodEventCount;
+    static int ScatterEventCount;
     static double DetLength;
     static double CrystLength;
-    static double SumEdep;
+    //static double SumEdep;
 };
 
 //

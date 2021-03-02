@@ -58,7 +58,7 @@ namespace {
 // outside of any function
 
 int BasicRunAction::GoodEventCount = 0;
-
+int BasicRunAction::ScatterEventCount = 0;
 
 // quickest way to change every instance
 // of these values at once

@@ -104,14 +104,20 @@ G4VPhysicalVolume* BasicDetectorConstruction::DefineVolumes()
   // we'll need some air
   G4NistManager* nist = G4NistManager::Instance();
    // pick material by commenting out the rest
-  G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_MUSCLE_STRIATED_ICRU");
-  /*
-   G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_TISSUE_SOFT_ICRP");
-  G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_SKIN_ICRP");
-  G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_BONE_COMPACT_ICRU");
-  G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_BLOOD_ICRP");
+  //G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_MUSCLE_STRIATED_ICRU");
+  
+ // G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_TISSUE_SOFT_ICRP");
+  
+ // G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_SKIN_ICRP");
+
+ // G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_BONE_COMPACT_ICRU");
+
+ // G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_BLOOD_ICRP");
+
   G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_ADIPOSE_TISSUE_ICRP");
- */
+
+  //G4Material* phantom_mat = nist->FindOrBuildMaterial("G4_AIR");
+
   G4Material* default_mat = nist->FindOrBuildMaterial("G4_AIR");
   G4Material* tube_mat   = nist->FindOrBuildMaterial("Lu2SiO5");
 
@@ -170,6 +176,7 @@ new G4PVPlacement(0,                       // no rotation
                   0,                       // number
                   fCheckOverlaps);         // checking overlaps
 
+
   //
   // patient
   //
@@ -225,7 +232,7 @@ void BasicDetectorConstruction::ConstructSDandField()
   G4VPrimitiveScorer* primitiv2 = new G4PSEnergyDeposit("edep");
   patient->RegisterPrimitive(primitiv2);
   SetSensitiveDetector("Patient",patient);
-  
+
   /*
   auto phantomSD
     = new BasicPETSD("phantomSD", "PatientHitsCollection");

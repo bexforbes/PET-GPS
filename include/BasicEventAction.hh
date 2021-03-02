@@ -41,10 +41,10 @@ public:
 
   virtual void  BeginOfEventAction(const G4Event* event);
   virtual void    EndOfEventAction(const G4Event* event);
-  //virtual void  Merge(const G4UserEventAction*);
+  virtual void  Merge(const G4UserEventAction* eventAction);
 
 public:
-  G4double GetSumEdep()   const { return fSumEdep; }    
+  G4double GetSumEdep() const { return fSumEdep; }    
 
 
 private:
@@ -57,7 +57,7 @@ private:
   BasicRunAction*  fRunAction;
   G4int  fDetHCID;
   G4int fPhanHCID;
-  G4int fSumEdep;
+  G4double fSumEdep;
 };
 
 //
